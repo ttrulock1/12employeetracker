@@ -9,3 +9,13 @@ const connection = mysql.createConnection({
 });
 
 connection.connect();
+
+function mainMenu() {
+    inquirer.prompt(
+        {
+            type:'list',
+            messgae:"Please select your object"
+
+        }
+    )
+}
