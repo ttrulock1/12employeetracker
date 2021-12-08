@@ -4,7 +4,7 @@ const mysql = require('mysql2');
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'Jacob123',
     database: 'Employee_Tracker',
 });
 
@@ -14,7 +14,7 @@ function mainMenu() {
     inquirer.prompt(
         {
             type:'list',
-            message:"Please select your object"
+            message:"Please select your object",
             name: 'option',
             choices: [
                 'View all departments',
@@ -94,7 +94,7 @@ function viewAllDepartments() {
                 throw err;
             }
             console.table(res)
-            runList();
+            mainMenu();
         }
     )
 }
@@ -106,7 +106,7 @@ function viewAllRoles() {
                 throw err;
             }
             console.table(res)
-            runList();
+            mainMenu();
         }
     )
 }
@@ -120,7 +120,7 @@ function viewAllEmployees() {
                 throw err;
             }
             console.table(res)
-            runList();
+            mainMenu();
         }
 
     )
@@ -139,7 +139,7 @@ function addDepartment() {
         connection.query('INSERT INTO department SET?', { name: answer.department }, (err, res) => {
             if (err) throw err;
             console.log('Added new department')
-            runList();
+            mainMenu();
         });
     });
 }
@@ -189,7 +189,7 @@ function addRoles() {
         })
         .then(res => {
             console.log('Added new role')
-            runList();
+            mainMenu();
 
         })
         .catch(err => {
@@ -228,13 +228,12 @@ function selectManager() {
 
     const managers = await selectManager();
     
-    inquirer.prompt([
-        name:"firstname"
-        type:"input"
-        message:"Enter their last name"
+    inquirer.prompt([{
+        name:"firstname",
+        type:"input",
+        message:"Enter their last name",
 
-    ])
- }
+ },
  {
     name: "lastname",
     type: "input",
@@ -267,7 +266,7 @@ connection.query("INSERT INTO Employee SET ?",
     }, function (err) {
         if (err) throw err
         console.table(res)
-        runList();
+        mainMenu();
     })
 
 })
@@ -315,7 +314,7 @@ function updateEmployeeRole() {
         .then(res => {
             // console.log(res);
             console.log('Updated Manager Successfully')
-            runList();
+            mainMenu();
         })
 
         .catch(err => {
@@ -354,7 +353,7 @@ function deleteDepartment() {
         .then(res => {
             // console.log(res);
             console.log('Department Deleted Successfully')
-            runList();
+            mainMenu();
         })
 
         .catch(err => {
@@ -392,7 +391,7 @@ function deleteEmployee() {
         .then(res => {
             // console.log(res);
             console.log('Employee Deleted Successfully')
-            runList();
+            mainMenu();
         })
 
         .catch(err => {
@@ -430,7 +429,7 @@ function deleteRole() {
         .then(res => {
             // console.log(res);
             console.log('Role Deleted Successfully')
-            runList();
+            mainMenu();
         })
 
         .catch(err => {
@@ -483,7 +482,7 @@ function updateManager() {
         .then(res => {
             // console.log(res);
             console.log('Updated Manager Successfully')
-            runList();
+            mainMenu();
         })
 
         .catch(err => {
@@ -522,11 +521,11 @@ function viewEmployeeByManager() {
         .then(res => {
             console.table(res[0])
             // console.log('Updated Manager Successfully')
-            runList();
+            mainMenu();
         })
 
         .catch(err => {
             throw err
         });
 }
-runList();
+mainMenu();
